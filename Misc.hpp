@@ -2,6 +2,7 @@
 #define Tools_Misc_hpp
 
 #include <algorithm>
+#include <boost/math/special_functions/erf.hpp>
 #include <cassert>
 #include <cmath>
 #include <vector>
@@ -20,6 +21,9 @@ double logdiffexp(double b, double a);
 // Modulo and related things
 int mod(int y, int x);
 void wrap(double& x, double min=0.0, double max=1.0);
+
+// Inverse CDF for a standard normal distribution
+double qnorm(double p);
 
 /* IMPLEMENTATIONS FOLLOW */
 
@@ -49,6 +53,12 @@ void wrap(double& x, double min, double max)
 {
     x = Tools::mod(x - min, max - min) + min;
 }
+
+double qnorm(double p)
+{
+    return sqrt(2.0)*boost::math::erf_inv(2.0*p - 1.0);
+}
+
 
 } // namespace
 
