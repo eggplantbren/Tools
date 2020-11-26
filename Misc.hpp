@@ -45,6 +45,15 @@ double mod(double y, double x)
     return (y/x - floor(y/x))*x;
 }
 
+int mod(int y, int x)
+{
+    assert(x > 0);
+    if(y >= 0)
+        return y - (y/x)*x;
+    else
+        return (x-1) - Tools::mod(-y-1, x);
+}
+
 void wrap(double& x, double min, double max)
 {
     x = Tools::mod(x - min, max - min) + min;
