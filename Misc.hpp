@@ -27,7 +27,7 @@ double qnorm(double p);
 
 /* IMPLEMENTATIONS FOLLOW */
 
-double logsumexp(const std::vector<double>& logv)
+inline double logsumexp(const std::vector<double>& logv)
 {
     double max = *max_element(logv.begin(), logv.end());
     double answer = 0.0;
@@ -37,19 +37,19 @@ double logsumexp(const std::vector<double>& logv)
     return answer;
 }
 
-double logdiffexp(double b, double a)
+inline double logdiffexp(double b, double a)
 {
     assert(b >= a);
     return b + log(1 - exp(a-b));
 }
 
-double mod(double y, double x)
+inline double mod(double y, double x)
 {
     assert(x > 0.0);
     return (y/x - floor(y/x))*x;
 }
 
-int mod(int y, int x)
+inline int mod(int y, int x)
 {
     assert(x > 0);
     if(y >= 0)
@@ -58,12 +58,12 @@ int mod(int y, int x)
         return (x-1) - Tools::mod(-y-1, x);
 }
 
-void wrap(double& x, double min, double max)
+inline void wrap(double& x, double min, double max)
 {
     x = Tools::mod(x - min, max - min) + min;
 }
 
-double qnorm(double p)
+inline double qnorm(double p)
 {
     return sqrt(2.0)*boost::math::erf_inv(2.0*p - 1.0);
 }
