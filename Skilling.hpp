@@ -310,14 +310,15 @@ int        seed);          // I    time-seed as actually used
 //
 // History:   John Skilling  18 Feb 2012
 //-----------------------------------------------------------------------------
-int Ran64Init(        //   O  +ve seed value used, either from input or time.
+inline int Ran64Init(        //   O  +ve seed value used, either from input or time.
 Rand64_t   Rand,      //   O  Random generator state                   ulong[4]
 int        seed)      // I    Seed: +ve = value, -ve = time seed
 {
     ulong* pRand = Rand;   // explicit pointer to Rand
     return Ran64InitN(&pRand, seed, 1);
 }
-int Ran64InitN(       //   O  +ve seed value used, either from input or time.
+
+inline int Ran64InitN(       //   O  +ve seed value used, either from input or time.
 ulong**    pRand,     //   O  &(Random generator states)                 [N][4]
 int        seed,      // I    Seed: +ve = value, -ve = time seed
 int        N)         // I    # random generators
@@ -359,7 +360,7 @@ int        N)         // I    # random generators
 //
 // History:   John Skilling  18 Feb 2012
 //-----------------------------------------------------------------------------
-int  KnuthInit(       //   O  +ve seed value used, either from input or time.
+inline int  KnuthInit(       //   O  +ve seed value used, either from input or time.
 Knuth_t   Rand,       //   O  Random generator state               unsigned[58]
 int       seed)       // I    Non-negative seed
 {
@@ -397,7 +398,7 @@ int       seed)       // I    Non-negative seed
 //            
 // History:   John Skilling  6 May 1995, 12 Nov 2006
 //-----------------------------------------------------------------------------
-unsigned Knuth(       //   O  32-bit integer
+inline unsigned Knuth(       //   O  32-bit integer
 Knuth_t  Rand)        // I O  Random generator state               unsigned[58]
 {
 static const int Roll[55] = {    1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -420,7 +421,7 @@ static const int Roll[55] = {    1, 2, 3, 4, 5, 6, 7, 8, 9,
 //
 // History:   John Skilling   2 Dec 2018
 //-----------------------------------------------------------------------------
-int  MersenneInit(    //   O  +ve seed value used, either from input or time.
+inline int  MersenneInit(    //   O  +ve seed value used, either from input or time.
 Mersenne_t Rand,      //   O  Random generator state                 ulong[314]
 int        seed)      // I    Non-negative seed
 {
@@ -448,7 +449,7 @@ int        seed)      // I    Non-negative seed
 //            
 // History:   John Skilling   2 Dec 2018
 //-----------------------------------------------------------------------------
-ulong Mersenne(       //   O  32-bit integer
+inline ulong Mersenne(       //   O  32-bit integer
 Mersenne_t Rand)      //   O  Random generator state                 ulong[314]
 {
 static const int Roll[468] = {
@@ -533,7 +534,7 @@ static const int* Roll156 = Roll + 156;
 // History:   John Skilling  17 Feb 2012
 //            JS              2 Dec 2018  Call counter increment set to 1
 //-----------------------------------------------------------------------------
-ulong RanLong(           //   O  Random sample from Uniform[0, 2^64)
+inline ulong RanLong(           //   O  Random sample from Uniform[0, 2^64)
 Rand64_t   Rand)         // I O  Random generator state
 {
     ulong R;
@@ -560,7 +561,7 @@ Rand64_t   Rand)         // I O  Random generator state
 //
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-unsigned RanInt(         //   O  Random sample from Uniform[0, 2^32)
+inline unsigned RanInt(         //   O  Random sample from Uniform[0, 2^32)
 Rand64_t   Rand)         // I O  Random generator state
 {
     return (unsigned)(RanLong(Rand) >> 32);
@@ -578,7 +579,7 @@ Rand64_t   Rand)         // I O  Random generator state
 // History:   John Skilling   17 Feb 2012
 //            Richard Denny    4 May 2012  bugfix
 //-----------------------------------------------------------------------------
-float RanFloat(          //   O  Random odd multiple of 2^-24 in (0,1)
+inline float RanFloat(          //   O  Random odd multiple of 2^-24 in (0,1)
 Rand64_t   Rand)         // I O  Random generator state
 {
     static const float scale = 1.0 / (float)0x1000000;
@@ -598,7 +599,7 @@ Rand64_t   Rand)         // I O  Random generator state
 // History:   John Skilling   17 Feb 2012
 //            Richard Denny    4 May 2012  bugfix
 //-----------------------------------------------------------------------------
-double RanDouble(      //   O  Random odd multiple of 2^-53 in (0,1)
+inline double RanDouble(      //   O  Random odd multiple of 2^-53 in (0,1)
 Rand64_t Rand)         // I O  Random generator state
 {
     static const double scale = 1.0 / (double)0x20000000000000;
@@ -618,7 +619,7 @@ Rand64_t Rand)         // I O  Random generator state
 //
 // History:   John Skilling   17 Feb 2012
 //-----------------------------------------------------------------------------
-double RanSigned(      //   O  Random odd multiple of 2^-53 in (-1,1)
+inline double RanSigned(      //   O  Random odd multiple of 2^-53 in (-1,1)
 Rand64_t Rand)         // I O  Random generator state
 {
     static const double scale = 1.0 / (double)0x20000000000000;
@@ -634,7 +635,7 @@ Rand64_t Rand)         // I O  Random generator state
 // History:   John Skilling   17 Feb 2012
 //                             9 Mar 2012  bound=0 returns 0 (change of spec.)
 //-----------------------------------------------------------------------------
-unsigned RanGrid(         //   O  Random sample from Uniform[0, bound)
+inline unsigned RanGrid(         //   O  Random sample from Uniform[0, bound)
 Rand64_t   Rand,          // I O  Random generator state
 unsigned   bound)         // I    Supremum
 {
@@ -656,7 +657,7 @@ unsigned   bound)         // I    Supremum
 //
 // History:   John Skilling  29 Feb 2012
 //-----------------------------------------------------------------------------
-double RanExp(           //   O  Random sample from exponential distribution
+inline double RanExp(           //   O  Random sample from exponential distribution
 Rand64_t   Rand)         // I O  Random generator state
 {
     return  -log(RanDouble(Rand));
@@ -675,7 +676,7 @@ Rand64_t   Rand)         // I O  Random generator state
 // 
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-double RanCauchy(        //   O  Random sample from Cauchy distribution
+inline double RanCauchy(        //   O  Random sample from Cauchy distribution
 Rand64_t   Rand)         // I O  Random generator state
 {
     double u;  // Uniform(-1,1), not 0. (*2^63)
@@ -700,7 +701,7 @@ Rand64_t   Rand)         // I O  Random generator state
 // History:   John Skilling  17 Feb 2012
 //            JS             19 Dec 2018 x=0 excluded
 //-----------------------------------------------------------------------------
-double RanGauss(         //   O  Random sample from normal distribution
+inline double RanGauss(         //   O  Random sample from normal distribution
 Rand64_t   Rand)         // I O  Random generator state
 {
                // do{ u = Uniform(-0.8578,0.8578) avoids certain rejection
@@ -730,7 +731,7 @@ Rand64_t   Rand)         // I O  Random generator state
 // History:   John Skilling  17 Feb 2012
 //            JS             15 Sep 2014  Code transferred to RanGamLogs
 //-----------------------------------------------------------------------------
-double RanGamma(         //   O  Random sample from gamma distribution
+inline double RanGamma(         //   O  Random sample from gamma distribution
 Rand64_t   Rand,         // I O  Random generator state
 double     c)            // I    Exponent > 0.0
 {
@@ -752,7 +753,7 @@ double     c)            // I    Exponent > 0.0
 // History:   John Skilling  17 Feb 2012
 //            JS             15 Sep 2014  Code transferred to RanGamLogs
 //-----------------------------------------------------------------------------
-double RanBeta(          //   O  Random sample from beta distribution
+inline double RanBeta(          //   O  Random sample from beta distribution
 Rand64_t   Rand,         // I O  Random generator state
 double     a,            // I    Exponent >= 0.0
 double     b)            // I    Exponent >= 0.0
@@ -786,7 +787,7 @@ double     b)            // I    Exponent >= 0.0
 //            JS             15 Sep 2014  Dirichlet generalisation
 //            JS             16 Sep 2019  c[k] = 0 allowed
 //-----------------------------------------------------------------------------
-double RanGamLogs(       //   O  log(SUM samples)
+inline double RanGamLogs(       //   O  log(SUM samples)
 Rand64_t   Rand,         // I O  Random generator state
 int        n,            // I    dimension
 double*    logx,         //   O  log(samples) from gammas
@@ -835,7 +836,7 @@ double*    c)            // I    exponents > 0.0
 // 
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-int   RanPoiss(        //   O  Random sample from Poisson distribution
+inline int   RanPoiss(        //   O  Random sample from Poisson distribution
 Rand64_t   Rand,       // I O  Random generator state
 double     c)          // I    Mean > 0
 {
@@ -888,7 +889,7 @@ double     c)          // I    Mean > 0
 // 
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-int  RanBinom(         //   O  Random sample from binomial distribution
+inline int  RanBinom(         //   O  Random sample from binomial distribution
 Rand64_t   Rand,       // I O  Random generator state
 int        n,          // I    Range
 double     p)          // I    Mean/Range
@@ -970,7 +971,7 @@ double     p)          // I    Mean/Range
 //
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-void RanPerm( 
+inline void RanPerm( 
 Rand64_t Rand,        // I O  Random generator state
 int      n,           // I    Dimension
 int*     perm)        //   O  Output permutation
@@ -992,7 +993,7 @@ int*     perm)        //   O  Output permutation
 //
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-void RanSphere(
+inline void RanSphere(
 Rand64_t Rand,   // I O  random generator
 int      n,      // I    dimension
 double*  v)      //   O  random vector, unit length v'.v = 1     [n]
@@ -1016,7 +1017,7 @@ double*  v)      //   O  random vector, unit length v'.v = 1     [n]
 //
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-void RanSimplex(
+inline void RanSimplex(
 Rand64_t Rand,        // I O  random generator
 double   s,           // I    SUM(v)
 int      n,           // I    dimension
@@ -1069,7 +1070,7 @@ double*  v)           //   O  vector being coloured      [n]
 // 
 // History:   John Skilling   4 Feb 2016
 //-----------------------------------------------------------------------------
-double PrCauchy2(   //   O  Joint probability
+inline double PrCauchy2(   //   O  Joint probability
 double  x,          // I    Location unit-Cauchy variable (from linear weights)
 double  v)          // I    Velocity unit-Cauchy variable (from equal  weights)
 {
@@ -1107,7 +1108,7 @@ double  v)          // I    Velocity unit-Cauchy variable (from equal  weights)
 // 
 // History:   John Skilling   4 Feb 2016
 //-----------------------------------------------------------------------------
-double RanCauchyXfromV(     //   O  Conditional Cauchy sample of location
+inline double RanCauchyXfromV(     //   O  Conditional Cauchy sample of location
 Rand64_t   Rand,            // I O  Random generator state
 double     v)               // I    Velocity
 {
@@ -1148,7 +1149,7 @@ double     v)               // I    Velocity
 // 
 // History:   John Skilling   4 Feb 2016
 //-----------------------------------------------------------------------------
-double RanCauchyVfromX(     //   O  Conditional Cauchy sample of velocity
+inline double RanCauchyVfromX(     //   O  Conditional Cauchy sample of velocity
 Rand64_t   Rand,            // I O  Random generator state
 double     x)               // I    Location
 {
@@ -1200,7 +1201,7 @@ double     x)               // I    Location
 //
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-double logGamma(            //   O  log of Gamma function
+inline double logGamma(            //   O  log of Gamma function
 double x)                   // I    Argument
 {
     double s, t;
@@ -1227,7 +1228,7 @@ double x)                   // I    Argument
 //
 // History:   John Skilling  17 Feb 2012
 //-----------------------------------------------------------------------------
-double logFactorial(     //   O  Value = log(k!)
+inline double logFactorial(     //   O  Value = log(k!)
 unsigned  k)             // I    Argument
 {
 /*         // CODE TO GENERATE LOOKUP TABLE //
@@ -1572,7 +1573,7 @@ double  x)             // I    Argument
 //
 // History:   John Skilling   18 August 2014
 //-----------------------------------------------------------------------------
-int NumOnes32(    //   O  number of '1' bits set
+inline int NumOnes32(    //   O  number of '1' bits set
 unsigned k)       // I    32-bit integer
 {
     k -= (k>>1) & 0x55555555;          // each 2-bit pair becomes # set bits
@@ -1588,7 +1589,7 @@ unsigned k)       // I    32-bit integer
     return k >> 24;                    // return top char
 }
 //-----------------------------------------------------------------------------
-int NumOnes64(    //   O  number of '1' bits set
+inline int NumOnes64(    //   O  number of '1' bits set
 ulong  k)         // I    64-bit integer
 {
     k -= (k>>1) & 0x5555555555555555;  // each 2-bit pair becomes # set bits
@@ -1612,7 +1613,7 @@ ulong  k)         // I    64-bit integer
 // 
 // History:   John Skilling  29 Feb 2012
 //-----------------------------------------------------------------------------
-void RanDate(
+inline void RanDate(
 char*    date,    //   O  user's 25-character string, including NULL terminator
 int      seed)    // I    time-seed as actually used
 {

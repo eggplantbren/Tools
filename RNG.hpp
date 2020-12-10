@@ -22,7 +22,7 @@ class RNG
     public:
 
         // Default constructor
-        RNG();
+        RNG() = default;
 
         // Set the seed
         void set_seed(int seed);
@@ -50,42 +50,37 @@ class RNG
 
 /* IMPLEMENTATION FOLLOWS */
 
-RNG::RNG()
-{
-
-}
-
-void RNG::set_seed(int seed)
+inline void RNG::set_seed(int seed)
 {
     Ran64Init(skilling_rng, seed);
 }
 
-double RNG::rand()
+inline double RNG::rand()
 {
     return RanDouble(skilling_rng);
 }
 
-double RNG::randn()
+inline double RNG::randn()
 {
     return RanGauss(skilling_rng);
 }
 
-double RNG::randh()
+inline double RNG::randh()
 {
     return pow(10.0, 1.0 - std::abs(this->randc()))*this->randn();
 }
 
-double RNG::randc()
+inline double RNG::randc()
 {
     return tan(M_PI*(this->rand() - 0.5));
 }
 
-int RNG::rand_int(int N)
+inline int RNG::rand_int(int N)
 {
     return static_cast<int>(floor(N*this->rand()));
 }
 
-std::vector<char> RNG::to_blob() const
+inline std::vector<char> RNG::to_blob() const
 {
     int chars_per_element = sizeof(unsigned long)/sizeof(char);
     int chars_needed = 4*chars_per_element;
