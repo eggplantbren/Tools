@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <cstring>
+#include <ctime>
 #include "Skilling.hpp"
 #include <vector>
 
@@ -21,8 +22,8 @@ class RNG
 
     public:
 
-        // Default constructor
-        RNG() = default;
+        // Default constructor sets the seed with the unix time
+        RNG();
 
         // Set the seed
         void set_seed(int seed);
@@ -49,6 +50,11 @@ class RNG
 
 
 /* IMPLEMENTATION FOLLOWS */
+
+inline RNG::RNG()
+{
+    set_seed(time(0));
+}
 
 inline void RNG::set_seed(int seed)
 {
