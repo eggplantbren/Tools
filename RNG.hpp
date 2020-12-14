@@ -22,8 +22,8 @@ class RNG
 
     public:
 
-        // Default constructor sets the seed with the unix time
-        RNG();
+        // Pass the seed, or alternatively, it will use the unix time
+        RNG(int seed = time(0));
 
         // Set the seed
         void set_seed(int seed);
@@ -51,9 +51,9 @@ class RNG
 
 /* IMPLEMENTATION FOLLOWS */
 
-inline RNG::RNG()
+inline RNG::RNG(int seed)
 {
-    set_seed(time(0));
+    set_seed(seed);
 }
 
 inline void RNG::set_seed(int seed)
