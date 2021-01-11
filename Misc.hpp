@@ -5,6 +5,8 @@
 #include <boost/math/special_functions/erf.hpp>
 #include <cassert>
 #include <cmath>
+#include <string>
+#include <sstream>
 #include <vector>
 
 namespace Tools
@@ -24,6 +26,10 @@ void wrap(double& x, double min=0.0, double max=1.0);
 
 // Inverse CDF for a standard normal distribution
 double qnorm(double p);
+
+// Render vector as string
+template<typename T>
+std::string render(const std::vector<T>& xs, const char* sep = ", ");
 
 /* IMPLEMENTATIONS FOLLOW */
 
@@ -66,6 +72,19 @@ inline void wrap(double& x, double min, double max)
 inline double qnorm(double p)
 {
     return sqrt(2.0)*boost::math::erf_inv(2.0*p - 1.0);
+}
+
+template<typename T>
+inline std::string render(const std::vector<T>& xs, const char* sep)
+{
+    std::stringstream ss;
+    for(int i=0; i<int(xs.size()); ++i)
+    {
+        ss << xs[i];
+        if(i < int(xs.size())-1)
+            ss << sep;
+    }
+    return ss.str();   
 }
 
 
