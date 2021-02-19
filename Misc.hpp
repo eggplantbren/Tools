@@ -35,6 +35,9 @@ std::string render(const std::vector<T>& xs, const char* sep = ", ");
 
 inline double logsumexp(const std::vector<double>& logv)
 {
+    if(logv.size() == 0)
+        return minus_infinity;
+
     double max = *max_element(logv.begin(), logv.end());
     double answer = 0.0;
     for(size_t i=0; i<logv.size(); ++i)
