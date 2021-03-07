@@ -4,8 +4,8 @@
 #include <chrono>
 #include <iostream>
 
-using namespace std::chrono; 
-  
+using namespace std::chrono;
+
 namespace Tools
 {
 
@@ -18,22 +18,22 @@ class Timer
     public:
 
         // Timer starts upon construction
-        Timer();
+        inline Timer();
 
         // Stops the timer and returns the number of seconds
-        double stop();
+        inline double stop();
 };
 
 /* IMPLEMENTATIONS FOLLOW */
 
-Timer::Timer()
+inline Timer::Timer()
 :t0(steady_clock::now())
 ,seconds(0.0)
 {
 
 }
 
-double Timer::stop()
+inline double Timer::stop()
 {
     return duration<double>(steady_clock::now() - t0).count();
 }
