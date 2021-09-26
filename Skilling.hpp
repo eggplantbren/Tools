@@ -7,6 +7,9 @@
 #include <math.h>
 #include <assert.h>
 
+#pragma GCC diagnostic ignored "-Wuninitialized"
+
+
 namespace Tools
 {
 
