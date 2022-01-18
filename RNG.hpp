@@ -43,6 +43,9 @@ class RNG
         // Integer from {0, 1, 2, ..., N-1}
         int rand_int(int N);
 
+        // Laplacian
+        double randl();
+
         // State to blob
         std::vector<char> to_blob() const;
 
@@ -84,6 +87,14 @@ inline double RNG::randc()
 inline int RNG::rand_int(int N)
 {
     return static_cast<int>(floor(N*this->rand()));
+}
+
+inline double RNG::randl()
+{
+    double x = -log(this->rand());
+    if(this->rand() <= 0.5)
+        x *= -1.0;
+    return x;
 }
 
 inline std::vector<char> RNG::to_blob() const
